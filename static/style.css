@@ -1,0 +1,299 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap');
+
+/* Default Light Mode Variables */
+:root {
+    --bg-color: #f7f7f7;
+    --text-color: #333333;
+    --border-color: #e0e0e0;
+    --accent-color: #666666;
+    --container-bg: #ffffff;
+    --header-bg: var(--bg-color);
+    --response-bg: var(--bg-color);
+    --input-bg: #ffffff;
+}
+
+/* Dark Mode Variables */
+body.dark-mode {
+    --bg-color: #202124;
+    --text-color: #d4d4d4;
+    --border-color: #5f5f5f;
+    --accent-color: #33ff00;
+    --container-bg: #2c2c2c;
+    --header-bg: #202124;
+    --response-bg: rgba(0, 0, 0, 0.2);
+    --input-bg: #2c2c2c;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+    
+    /* Light Mode Background: Meteors */
+    background-image: radial-gradient(circle at 10% 20%, rgba(0,0,0,0.15) 1px, transparent 1px),
+                      radial-gradient(circle at 90% 80%, rgba(0,0,0,0.15) 1px, transparent 1px);
+    background-size: 50px 50px, 50px 50px;
+    animation: animate-day-bg 60s linear infinite;
+}
+
+body.dark-mode {
+    /* Dark Mode Background: Falling Stars */
+    background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.1) 1px, transparent 1px),
+                      radial-gradient(circle at 90% 80%, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 50px 50px, 50px 50px;
+    animation: animate-night-bg 60s linear infinite;
+}
+
+.chat-container {
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--container-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.chat-header {
+    background-color: var(--header-bg);
+    color: var(--text-color);
+    padding: 15px 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    position: relative; /* For toggle button positioning */
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.chat-header h1 {
+    font-family: 'Press Start 2P', cursive;
+    margin: 0;
+    font-size: 1.5em;
+    color: var(--accent-color);
+    transition: color 0.3s;
+}
+
+.chat-header p {
+    font-family: 'Press Start 2P', cursive; /* Apply font here */
+    margin-top: 10px;
+    font-size: 0.7em;
+    color: var(--accent-color); /* Apply accent color */
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+.chat-box {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.response-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+}
+
+.response-area, .loading-indicator {
+    background-color: var(--response-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: 1.6;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8em;
+    transition: background-color 0.3s, border-color 0.3s;
+    max-width: 80%;
+}
+
+.loading-indicator p {
+    margin: 0;
+    color: var(--accent-color);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8em;
+}
+
+.loading-indicator .dot {
+    animation: blink 1.4s infinite;
+    animation-fill-mode: both;
+}
+
+.loading-indicator .dot:nth-child(2) { animation-delay: .2s; }
+.loading-indicator .dot:nth-child(3) { animation-delay: .4s; }
+
+.chat-form {
+    display: flex;
+    padding: 15px 20px;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--container-bg);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.chat-form input[type="text"] {
+    flex-grow: 1;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 1em;
+    outline: none;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.chat-form input[type="text"]:focus {
+    border-color: var(--accent-color);
+}
+
+.chat-form button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 700;
+    transition: background-color 0.3s;
+}
+
+.chat-form button:hover {
+    background-color: #555555;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Toggle Switch Styles */
+.theme-switch {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.theme-switch input[type="checkbox"] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+.theme-switch label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 40px;
+    height: 20px;
+    background: var(--accent-color);
+    display: block;
+    border-radius: 10px;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.theme-switch label:after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 9px;
+    transition: 0.3s;
+}
+
+.theme-switch input:checked + label {
+    background: var(--accent-color);
+}
+
+.theme-switch input:checked + label:after {
+    left: calc(100% - 2px);
+    transform: translateX(-100%);
+}
+
+.theme-switch label:active:after {
+    width: 20px;
+}
+
+/* Animations */
+@keyframes blink {
+    0% { opacity: .2; }
+    20% { opacity: 1; }
+    100% { opacity: .2; }
+}
+
+@keyframes animate-day-bg {
+    from { background-position: 0 0; }
+    to { background-position: 1000px 1000px; } /* Diagonal movement for meteors */
+}
+
+@keyframes animate-night-bg {
+    from { background-position: 0 0; }
+    to { background-position: 0 1000px; } /* Downward movement for falling stars */
+}
+
+#watermark-text {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6em;
+    color: rgba(102, 102, 102, 0.5); /* Semi-transparent accent color */
+    z-index: 1000; /* Ensure it's on top */
+    pointer-events: none; /* Allow clicks to pass through */
+}
+
+body.dark-mode #watermark-text {
+    color: rgba(51, 255, 0, 0.3); /* Semi-transparent accent color for dark mode */
+}
+
+.tagline {
+    font-family: 'Roboto', sans-serif;
+    margin-top: 5px;
+    font-size: 0.8em;
+    color: var(--text-color);
+    opacity: 0.7;
+    transition: color 0.3s, opacity 0.3s;
+}
+
+#copyright-watermark {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7em;
+    color: #FFD700; /* Gold color for prominence */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Stronger shadow */
+    z-index: 1000;
+    pointer-events: none;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+body.dark-mode #copyright-watermark {
+    color: #00FFFF; /* Cyan for dark mode */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CihuyBot - Personal Chatbot</title>
+    <link rel="icon" href="{{ url_for('static', filename='dino.jpeg') }}" type="image/jpeg">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>CIHUYBOT</h1>
+            <p class="tagline">AI (Asli Aceh)</p>
+            <div class="theme-switch">
+                <input type="checkbox" id="theme-toggle">
+                <label for="theme-toggle"></label>
+            </div>
+        </div>
+        <div class="chat-box">
+            <div class="response-container">
+                {% if response %}
+                <div class="response-area" id="responseArea">
+                    <p>{{ response }}</p>
+                </div>
+                {% else %}
+                <div class="response-area" id="responseArea">
+                    <p>Tanya apa saja tentang Akbar Permana</p>
+                </div>
+                {% endif %}
+                <div class="loading-indicator hidden" id="loadingIndicator">
+                    <p>LOADING<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></p>
+                </div>
+            </div>
+        </div>
+        <form class="chat-form" action="/chat" method="post" id="chatForm">
+            <input type="text" name="question" placeholder="Ketik pertanyaanmu di sini..." autocomplete="off">
+            <button type="submit">Kirim</button>
+        </form>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Load saved theme from localStorage
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.checked = true;
+        } else {
+            body.classList.remove('dark-mode');
+            themeToggle.checked = false;
+        }
+
+        // Toggle theme on switch change
+        themeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Loading indicator for chat form submission
+        document.getElementById('chatForm').addEventListener('submit', function() {
+            document.getElementById('responseArea').classList.add('hidden');
+            document.getElementById('loadingIndicator').classList.remove('hidden');
+        });
+    </script>
+    <p id="watermark-text">Hasil Project Akbar Ketika Memikirkan Hidup</p>
+    <p id="copyright-watermark">akbr.prmna_ | 2025</p>
+</body>
+</html>

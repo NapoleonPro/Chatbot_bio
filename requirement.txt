@@ -1,0 +1,8 @@
+Flask
+google-generativeai
+langchain-community
+langchain-google-genai
+PyMuPDF
+faiss-cpu
+python-dotenv
+watchdog
