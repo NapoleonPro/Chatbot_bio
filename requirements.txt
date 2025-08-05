@@ -6,3 +6,4 @@ PyMuPDF
 faiss-cpu
 python-dotenv
 watchdog
+gunicorn
